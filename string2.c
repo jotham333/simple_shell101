@@ -9,19 +9,19 @@
  */
 char *_strdup(const char *str)
 {
-    if (str == NULL)
-        return NULL;
+	if (str == NULL)
+		return NULL;
 
-    char *dup = malloc(sizeof(char) * (strlen(str) + 1));
-    if (dup == NULL)
-    {
-        return NULL;
-    }
-    for (int i = 0; str[i] != '\0'; i++)
-    {
-        dup[i] = str[i];
-    }
-    return dup;
+	char *dup = malloc(sizeof(char) * (strlen(str) + 1));
+	if (dup == NULL)
+	{
+		return NULL;
+	}
+	for (int i = 0; str[i] != '\0'; i++)
+	{
+		dup[i] = str[i];
+	}
+	return dup;
 }
 
 /**
@@ -33,16 +33,16 @@ char *_strdup(const char *str)
 
 char _strchar(char *str, char c)
 {
-    int i;
-    if (str == NULL)
-    return '\0';
+	int i;
+	if (str == NULL)
+		return '\0';
 
-    for (i = 0; str[i] != '\0'; i++)
-    {
-        if (str[i] == c)
-            return str[i];
-    }
-    return '\0';
+	for (i = 0; str[i] != '\0'; i++)
+	{
+		if (str[i] == c)
+			return str[i];
+	}
+	return '\0';
 }
 
 /**
@@ -54,22 +54,22 @@ char _strchar(char *str, char c)
 
 char *strcat(char *destination, const char *source)
 {
-    char *ptr;
-    if (destination == NULL)
-        return source;
+	char *ptr;
+	if (destination == NULL)
+		return source;
 
-    ptr = destination;
-    while (*ptr != '\0')
-        ptr++;
+	ptr = destination;
+	while (*ptr != '\0')
+		ptr++;
 
-    while (*source != '\0') 
-    {
-        *ptr = *source;
-        source++;
-        ptr++;
-    }
-    *ptr = '\0';
-    return destination;
+	while (*source != '\0') 
+	{
+		*ptr = *source;
+		source++;
+		ptr++;
+	}
+	*ptr = '\0';
+	return destination;
 }
 
 /**
@@ -81,14 +81,14 @@ char *strcat(char *destination, const char *source)
 
 char *_strcpy(char *destination, const char *source)
 {
-    if (destination == NULL)
-        return source;
-    
-    while (*source != '\0') 
-    {
-        *destination = *source;
-        source++;
-        destination++;
-    }
-    return destination;
+	if (destination == NULL)
+		return source;
+
+	while (*source != '\0') 
+	{
+		*destination = *source;
+		source++;
+		destination++;
+	}
+	return destination;
 }
