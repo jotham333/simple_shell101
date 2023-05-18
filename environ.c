@@ -1,0 +1,25 @@
+#include "shell.h"
+
+/**
+ *
+ *
+ *
+ *
+ *
+ */
+
+
+char *_getenv(const char *name)
+{
+        char **env = environ;
+        size_t name_len = strlen(name);
+        while (*env != NULL)
+        {
+                if (strncmp(*env, name, name_len) == 0 && (*env)[name_len] == '=')
+                {
+                        return *env + name_len + 1;
+                }
+                env++;
+        }
+        return NULL;
+}

@@ -1,127 +1,14 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/wait.h>
-#include <string.h>
+#include "shell.h"
+/**
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */
 
-#define MAX_INPUT_SIZE 4098
-
-extern char **environ;
-
-char *_getenv(const char *name)
-{
-	char **env = environ;
-	size_t name_len = strlen(name);
-	while (*env != NULL)
-	{
-		if (strncmp(*env, name, name_len) == 0 && (*env)[name_len] == '=')
-		{
-			return *env + name_len + 1;
-		}
-		env++;
-	}
-	return NULL;
-}
-
-// Function to tokenize a string
-char **tokenize(char *str)
-{
-	char **tokens = NULL;
-	char *token = strtok(str, " ");
-	int i = 0;
-
-	while (token != NULL)
-	{
-		tokens = realloc(tokens, sizeof(char *) * (i + 1));
-		tokens[i] = strdup(token);
-		i++;
-		token = strtok(NULL, " ");
-	}
-
-	tokens = realloc(tokens, sizeof(char *) * (i + 1));
-	tokens[i] = NULL;
-
-	return tokens;
-}
-
-// Function to run a command
-void run_command(char **tokens)
-{
-	pid_t pid;
-	int status;
-
-	pid = fork();
-
-	if (pid == -1)
-	{
-		perror("fork failed");
-		return;
-	}
-
-	if (pid == 0)
-	{
-		if (tokens[0][0] == '/')
-		{
-			execve(tokens[0], tokens, NULL);
-		}
-		else
-		{
-			char *path = _getenv("PATH");
-			char *path_copy = strdup(path);
-			char *token = strtok(path_copy, ":");
-
-			while (token != NULL)
-			{
-				char bin_path[MAX_INPUT_SIZE];
-				strcpy(bin_path, token);
-				strcat(bin_path, "/");
-				strcat(bin_path, tokens[0]);
-				execve(bin_path, tokens, NULL);
-				token = strtok(NULL, ":");
-			}
-			free(path_copy);
-			perror(tokens[0]);
-			exit(EXIT_FAILURE);
-		}
-	}
-
-	waitpid(pid, &status, 0);
-}
-
-// Function to implement the exit built-in
-void exit_builtin(char **tokens)
-{
-	if (tokens[1] != NULL)
-	{
-		write(STDERR_FILENO, "Usage: exit\n", 11);
-		return;
-	}
-	exit(EXIT_SUCCESS);
-}
-
-void env_builtin(char **tokens)
-{
-	if (tokens[1] != NULL)
-	{
-		write(STDERR_FILENO, "Usage: env\n", 11);
-		return;
-	}
-	char **env = environ;
-	while (*env != NULL)
-	{
-		size_t line_length = 0;
-		while (*(*env + line_length) != '=')
-		{
-			++line_length;
-		}
-		++line_length; // include the '=' sign
-		const char line[] = {'\n', '\0'};
-		write(STDOUT_FILENO, *env, line_length);
-		write(STDOUT_FILENO, *(env + 1), strlen(*(env + 1)));
-		write(STDOUT_FILENO, line, 1);
-		env += 2;
-	}
-}
 
 int main()
 {
@@ -150,7 +37,7 @@ int main()
 
 		if (strcmp(tokens[0], "env") == 0)
 		{
-			env_builtin(tokens);
+			env_builtin();
 			continue;
 		}
 		else if (strcmp(tokens[0], "exit") == 0)
@@ -159,7 +46,7 @@ int main()
 		}
 		else
 		{
-			run_command(tokens);
+			execute_command(tokens);
 		}
 		fflush(stdout);
 	}
