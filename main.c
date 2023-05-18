@@ -6,22 +6,20 @@
  */
 
 
-int main()
+int main(void)
 {
 	char *input = NULL;
 	char *tokens[MAX_INPUT_SIZE];
-	pid_t pid;
-	int status, i;
 	size_t len = 0;
 	char *token;
+	int i;
 
 	while (1)
 	{
 		write(1, "cisfun$ ", 9);
 		_getline(&input, &len, stdin);
-		input[strcspn(input, "\n")] = 0; // remove newline character
+		input[strcspn(input, "\n")] = 0;
 
-		// Tokenize the input
 		token = _strtok(input, " ");
 		i = 0;
 		while (token != NULL)
@@ -30,7 +28,7 @@ int main()
 			i++;
 			token = _strtok(NULL, " ");
 		}
-		tokens[i] = NULL; // Set the last element to NULL
+		tokens[i] = NULL;
 
 		if (_strcmp(tokens[0], "env") == 0)
 		{
@@ -48,5 +46,5 @@ int main()
 		fflush(stdout);
 	}
 	free(input);
-	return 0;
+	return (0);
 }

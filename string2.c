@@ -11,49 +11,49 @@ char *_strdup(char *str)
 	int i;
 
 	if (str == NULL)
-		return NULL;
+		return (NULL);
 
 	dup = malloc(sizeof(char) * (strlen(str) + 1));
 	if (dup == NULL)
 	{
-		return NULL;
+		return (NULL);
 	}
 	for (i = 0; str[i] != '\0'; i++)
 	{
 		dup[i] = str[i];
 	}
-	return dup;
+	return (dup);
 }
 
 /**
- * _strchar - duplicate a string
- * @str: string to duplicate
- * @c: character to duplicate
- * Return: pointer to duplicate string
+ * _strchr - search for a character in a string
+ * @str: pointer to the string
+ * @character: the character to be searched
+ * Return: pointer to string if success and NULL otherwise
  */
 
 char *_strchr(char *str, char character)
 {
-    while (*str != '\0')
-    {
-        if (*str == character)
-        {
-            return str;
-        }
-        str++;
-    }
-    if (character == '\0')
-    {
-        return str;
-    }
-    return NULL;
+	while (*str != '\0')
+	{
+		if (*str == character)
+		{
+			return (str);
+		}
+		str++;
+	}
+	if (character == '\0')
+	{
+		return (str);
+	}
+	return (NULL);
 }
 
 /**
- * _strcat - duplicate a string
- * @dest: string to duplicate
- * @src: string to duplicate
- * Return: pointer to duplicate string
+ * _strcat - concatenate two strings
+ * @destination: pointer to the string to be appended into
+ * @source: pointer to the string to append
+ * Return: pointer to the destination
  */
 
 char *_strcat(char *destination, char *source)
@@ -61,40 +61,40 @@ char *_strcat(char *destination, char *source)
 	char *ptr;
 
 	if (destination == NULL)
-		return source;
+		return (source);
 
 	ptr = destination;
 	while (*ptr != '\0')
 		ptr++;
 
-	while (*source != '\0') 
+	while (*source != '\0')
 	{
 		*ptr = *source;
 		source++;
 		ptr++;
 	}
 	*ptr = '\0';
-	return destination;
+	return (destination);
 }
 
 /**
- * _strcpy - duplicate a string
- * @dest: string to duplicate
- * @src: string to duplicate
- * Return: pointer to duplicate string
+ * _strcpy - copy a string to a destination
+ * @destination: pointer to the destination
+ * @source: pointer to the source to copy from
+ * Return: pointer to te destination
  */
 
 char *_strcpy(char *destination, char *source)
 {
-  int index = 0;
+	int index = 0;
 
-  while (source[index] != '\0')
-  {
-    destination[index] = source[index];
-    index++;
-  }
+	while (source[index] != '\0')
+	{
+		destination[index] = source[index];
+		index++;
+	}
 
-  destination[index] = '\0';
+	destination[index] = '\0';
 
-  return destination;
+	return (destination);
 }
