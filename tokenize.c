@@ -44,40 +44,30 @@ char **tokenize(char *str)
  */
 
 
-char *_strtok(char *str, char *delim)
-{
-	static char *last;
-	char *token;
-
-	if (str == NULL)
-	{
-		str = last;
-	}
-	else
-	{
-		last = str;
-	}
-
-	while (*str != '\0' && strchr(delim, *str) != NULL)
-	{
-		str++;
-	}
-
-	if (*str == '\0')
-		return (NULL);
-
-	token = str;
-	str = strchr(str, *delim);
-
-	if (str != NULL)
-	{
-		*str++ = '\0';
-	}
-
-	last = str;
-
-	return (token);
+char *_strtok(char* str, char* delim) {
+    static char* last;
+    if (str != NULL) {
+        last = str;
+    } else {
+        str = last;
+    }
+    while (*str && _strchr(delim, *str)) {
+        str++;
+    }
+    if (*str == '\0') {
+        return NULL;
+    }
+    char* token = str;
+    while (*str && !_strchr(delim, *str)) {
+        str++;
+    }
+    if (*str) {
+        *str++ = '\0';
+    }
+    last = str;
+    return token;
 }
+
 
 
 

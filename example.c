@@ -21,13 +21,13 @@ int main()
 		input[strcspn(input, "\n")] = 0; // remove newline character
 
 		// Tokenize the input
-		char *token = strtok(input, " ");
+		char *token = _strtok(input, " ");
 		int i = 0;
 		while (token != NULL)
 		{
 			tokens[i] = token;
 			i++;
-			token = strtok(NULL, " ");
+			token = _strtok(NULL, " ");
 		}
 		tokens[i] = NULL; // Set the last element to NULL
 

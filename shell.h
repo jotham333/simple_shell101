@@ -47,7 +47,7 @@ int _strncmp(char *str1, char *str2, size_t n);
 char *_strcpy(char *destination, char *srcource);
 char *_strcat(char *dest, char *src);
 char *_strdup(char *str);
-char *_strchr(char *str, int character);
+char *_strchr(char *str, char character);
 
 
 
