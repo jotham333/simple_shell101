@@ -1,11 +1,11 @@
 #include "shell.h"
 
 /**
+ * _getenv - print the environment
  *
+ * @name: name of the environment variable
  *
- *
- *
- *
+ * Return: void
  */
 
 

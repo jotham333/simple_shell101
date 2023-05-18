@@ -3,12 +3,11 @@
 
 
 /**
+ * tokenize - tokenize a string
  *
+ * @str: string to tokenize
  *
- *
- *
- *
- *
+ * Return: array of tokens
  */
 
 char **tokenize(char *str)

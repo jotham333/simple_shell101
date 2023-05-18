@@ -3,11 +3,11 @@
 
 
 /**
+ * execute_command - execute a command
  *
+ * @tokens: array of tokens
  *
- *
- *
- *
+ * Return: void
  */
 
 void execute_command(char **tokens)
