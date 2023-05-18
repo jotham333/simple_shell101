@@ -2,13 +2,11 @@
 
 
 /**
+ * env_builtin - print the environment
  *
+ * @tokens: array of tokens
  *
- *
- *
- *
- *
- *
+ * Return: void
  */
 
 void env_builtin()
@@ -34,12 +32,11 @@ void env_builtin()
 
 
 /**
+ * exit_builtin - exit the shell
  *
+ * @tokens: array of tokens
  *
- *
- *
- *
- *
+ * Return: void
  */
 
 void exit_builtin(char **tokens)
