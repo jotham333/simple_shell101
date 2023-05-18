@@ -34,7 +34,7 @@ void execute_command(char **tokens)
                 else
                 {
                         path = _getenv("PATH");
-                        path_copy = strdup(path);
+                        path_copy = _strdup(path);
                         token = strtok(path_copy, ":");
 
                         while (token != NULL)

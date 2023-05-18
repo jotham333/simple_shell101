@@ -27,6 +27,9 @@ void execute_command(char **tokens);
 
 /* tokenize.c */
 char **tokenize(char *str);
+char *_strtok(char *str, char *delim);
+
+
 
 /*environ.c */
 char *_getenv(char *name);
@@ -37,11 +40,14 @@ ssize_t _getline(char **line_ptr, size_t *line_size, FILE *stream);
 size_t _strlen(char *str);
 int _strcmp(const char *str1, const char *str2);
 int _strncmp(char *str1, char *str2, size_t n);
+
+
+
 /* string2.c */
 char *_strcpy(char *destination, char *srcource);
 char *_strcat(char *dest, char *src);
 char *_strdup(char *str);
-char _strchar(char *str, char c);
+char _strchr(char *str, char c);
 
 
 

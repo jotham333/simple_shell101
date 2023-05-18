@@ -29,7 +29,7 @@ char *_strdup(char *str)
  * Return: pointer to duplicate string
  */
 
-char _strchar(char *str, char c)
+char _strchr(char *str, char c)
 {
 	int i;
 	if (str == NULL)
