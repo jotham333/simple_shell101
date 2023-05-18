@@ -33,7 +33,7 @@ char *_strtok(char *str, char *delim);
 
 /*environ.c */
 char *_getenv(char *name);
-ssize_t _getline(char **line_ptr, size_t *line_size, FILE *stream);
+ssize_t _getline(char **lineptr, size_t *line_size, FILE *stream);
 
 
 /* string1.c */

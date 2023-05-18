@@ -11,8 +11,9 @@ int main()
 	char *input = NULL;
 	char *tokens[MAX_INPUT_SIZE];
 	pid_t pid;
-	int status;
+	int status, i;
 	size_t len = 0;
+	char *token;
 
 	while (1)
 	{
@@ -21,8 +22,8 @@ int main()
 		input[strcspn(input, "\n")] = 0; // remove newline character
 
 		// Tokenize the input
-		char *token = _strtok(input, " ");
-		int i = 0;
+		token = _strtok(input, " ");
+		i = 0;
 		while (token != NULL)
 		{
 			tokens[i] = token;

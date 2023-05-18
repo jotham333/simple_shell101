@@ -7,15 +7,18 @@
  */
 char *_strdup(char *str)
 {
+	char *dup;
+	int i;
+
 	if (str == NULL)
 		return NULL;
 
-	char *dup = malloc(sizeof(char) * (strlen(str) + 1));
+	dup = malloc(sizeof(char) * (strlen(str) + 1));
 	if (dup == NULL)
 	{
 		return NULL;
 	}
-	for (int i = 0; str[i] != '\0'; i++)
+	for (i = 0; str[i] != '\0'; i++)
 	{
 		dup[i] = str[i];
 	}
@@ -56,6 +59,7 @@ char *_strchr(char *str, char character)
 char *_strcat(char *destination, char *source)
 {
 	char *ptr;
+
 	if (destination == NULL)
 		return source;
 
@@ -80,10 +84,12 @@ char *_strcat(char *destination, char *source)
  * Return: pointer to duplicate string
  */
 
-char *_strcpy(char *destination, char *source) {
+char *_strcpy(char *destination, char *source)
+{
   int index = 0;
 
-  while (source[index] != '\0') {
+  while (source[index] != '\0')
+  {
     destination[index] = source[index];
     index++;
   }
