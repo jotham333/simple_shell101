@@ -29,18 +29,21 @@ char *_strdup(char *str)
  * Return: pointer to duplicate string
  */
 
-char _strchr(char *str, char c)
+char *_strchr(char *str, int character)
 {
-	int i;
-	if (str == NULL)
-		return '\0';
-
-	for (i = 0; str[i] != '\0'; i++)
-	{
-		if (str[i] == c)
-			return str[i];
-	}
-	return '\0';
+    while (*str != '\0')
+    {
+        if (*str == character)
+        {
+            return (char *)str;
+        }
+        str++;
+    }
+    if (character == '\0')
+    {
+        return (char *)str;
+    }
+    return NULL;
 }
 
 /**
