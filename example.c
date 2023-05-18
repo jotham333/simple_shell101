@@ -1,12 +1,8 @@
 #include "shell.h"
 /**
+ * main - check the code for Holberton School students.
  *
- *
- *
- *
- *
- *
- *
+ * Return: Always 0.
  */
 
 
@@ -21,7 +17,7 @@ int main()
 	while (1)
 	{
 		write(1, "cisfun$ ", 9);
-		getline(&input, &len, stdin);
+		_getline(&input, &len, stdin);
 		input[strcspn(input, "\n")] = 0; // remove newline character
 
 		// Tokenize the input
@@ -35,7 +31,7 @@ int main()
 		}
 		tokens[i] = NULL; // Set the last element to NULL
 
-		if (strcmp(tokens[0], "env") == 0)
+		if (_strcmp(tokens[0], "env") == 0)
 		{
 			env_builtin();
 			continue;

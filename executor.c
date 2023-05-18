@@ -39,9 +39,9 @@ void execute_command(char **tokens)
 
                         while (token != NULL)
                         {
-                                strcpy(bin_path, token);
-                                strcat(bin_path, "/");
-                                strcat(bin_path, tokens[0]);
+                                _strcpy(bin_path, token);
+                                _strcat(bin_path, "/");
+                                _strcat(bin_path, tokens[0]);
                                 execve(bin_path, tokens, NULL);
                                 token = strtok(NULL, ":");
                         }

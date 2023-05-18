@@ -5,7 +5,7 @@
  * @str: string to duplicate
  * Return: pointer to duplicate string
  */
-char *_strdup(const char *str)
+char *_strdup(char *str)
 {
 	if (str == NULL)
 		return NULL;
@@ -50,7 +50,7 @@ char _strchar(char *str, char c)
  * Return: pointer to duplicate string
  */
 
-char *strcat(char *destination, const char *source)
+char *_strcat(char *destination, char *source)
 {
 	char *ptr;
 	if (destination == NULL)
@@ -77,16 +77,15 @@ char *strcat(char *destination, const char *source)
  * Return: pointer to duplicate string
  */
 
-char *_strcpy(char *destination, const char *source)
-{
-	if (destination == NULL)
-		return source;
+char *_strcpy(char *destination, char *source) {
+  int index = 0;
 
-	while (*source != '\0') 
-	{
-		*destination = *source;
-		source++;
-		destination++;
-	}
-	return destination;
+  while (source[index] != '\0') {
+    destination[index] = source[index];
+    index++;
+  }
+
+  destination[index] = '\0';
+
+  return destination;
 }
