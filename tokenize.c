@@ -50,7 +50,13 @@ char *_strtok(char *str, char *delim)
 	char *token;
 
 	if (str == NULL)
+	{
 		str = last;
+	}
+	else
+	{
+		last = str;
+	}
 
 	while (*str != '\0' && strchr(delim, *str) != NULL)
 	{
