@@ -40,7 +40,7 @@ int main()
 			env_builtin();
 			continue;
 		}
-		else if (strcmp(tokens[0], "exit") == 0)
+		else if (_strcmp(tokens[0], "exit") == 0)
 		{
 			exit_builtin(tokens);
 		}

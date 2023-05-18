@@ -29,5 +29,14 @@ void execute_command(char **tokens);
 char **tokenize(char *str);
 
 /*environ.c */
-char *_getenv(const char *name);
+char *_getenv(char *name);
+
+
+/* string1.c */
+size_t _strlen(char *str);
+int _strcmp(const char *str1, const char *str2);
+int _strncmp(char *str1, char *str2, size_t n);
+
+
+
 #endif
