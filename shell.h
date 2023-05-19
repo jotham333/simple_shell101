@@ -20,6 +20,7 @@ extern char **environ;
 /* builtin.c */
 void env_builtin();
 void exit_builtin(char **tokens);
+int cd_builtin(char *path);
 
 /* executor.c */
 void execute_command(char **tokens);

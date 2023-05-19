@@ -8,7 +8,6 @@
  * Return: void
  */
 
-
 char *_getenv(char *name)
 {
 	char **env = environ;
@@ -78,80 +77,64 @@ ssize_t _getline(char **line_ptr, size_t *line_size, FILE *stream)
 }
 
 /**
- * _setenv - Set the value of an environment variable.
+ * _setenv - set an environment variable
  *
- * @name: The name of the environment variable.
- * @value: The value to set for the environment variable.
- * @overwrite: A flag indicating whether to overwrite an existing variable.
+ * @name: name of the environment variable
+ * @value: value of the environment variable
+ * @overwrite: whether to overwrite an existing variable
  *
- * Return: 0 on success, or -1 on error.
+ * Return: void
  */
-int _setenv(const char *name, const char *value, int overwrite)
-{
-	char **envp = environ;
 
-	if (name == NULL || value == NULL || (overwrite != 0 && overwrite != 1))
-		return (-1);
-	while (*envp != NULL)
-	{
-		if (strcmp(*envp, name) == 0)
-		{
-			if (overwrite == 0)
-				return (0);
-			if (*envp != NULL)
-				free(*envp);
-			*envp = strdup(value);
+#include <stdlib.h>
+#include <string.h>
+#include <errno.h>
 
-			if (*envp == NULL)
-				return (-1);
-			break;
-		}
-
-		envp++;
-	}
-
-	if (*envp == NULL)
-	{
-		*envp = strdup(name);
-		if (*envp == NULL)
-			return (-1);
-		*(envp + 1) = strdup(value);
-		if (*(envp + 1) == NULL)
-		{
-			free(*envp);
-			*envp = NULL;
-			return (-1);
-		}
-	}
-
-	return (0);
-}
-
-int _unsetenv(const char *name)
-{
-    char **envp = environ;
-
-    if (name == NULL)
-        return (-1);
-
-    while (*envp != NULL)
-    {
-        if (strncmp(*envp, name, strlen(name)) == 0 && (*envp)[strlen(name)] == '=')
-        {
-            // Shift all the entries after this one back by one
-            char **dst = envp;
-            char **src = envp + 1;
-            while (*src != NULL)
-            {
-                *dst = *src;
-                dst++;
-                src++;
-            }
-            *dst = NULL;
-            return (0);
-        }
-        envp++;
+int _setenv(const char *name, const char *value, int overwrite) {
+    // If overwrite is zero and the variable already exists, do nothing.
+    if (!overwrite && getenv(name) != NULL) {
+        return 0;
     }
 
-    return (0);
+    // Allocate memory for the new environment variable string.
+    size_t name_len = strlen(name);
+    size_t value_len = strlen(value);
+    char *env_str = malloc(name_len + value_len + 2);
+    if (env_str == NULL) {
+        errno = ENOMEM;
+        return -1;
+    }
+
+    // Construct the new environment variable string.
+    memcpy(env_str, name, name_len);
+    env_str[name_len] = '=';
+    memcpy(env_str + name_len + 1, value, value_len);
+    env_str[name_len + value_len + 1] = '\0';
+
+    // Set the new environment variable by modifying the environment array.
+    extern char **environ;
+    int env_size = 0;
+    while (environ[env_size] != NULL) {
+        env_size++;
+    }
+
+    char **new_environ = malloc(sizeof(char *) * (env_size + 2));
+    if (new_environ == NULL) {
+        errno = ENOMEM;
+        free(env_str);
+        return -1;
+    }
+
+    int i = 0;
+    while (environ[i] != NULL) {
+        new_environ[i] = environ[i];
+        i++;
+    }
+
+    new_environ[i] = env_str;
+    new_environ[i + 1] = NULL;
+
+    environ = new_environ;
+
+    return 0;
 }

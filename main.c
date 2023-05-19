@@ -10,6 +10,7 @@ int main(void)
 {
 	char *input = NULL;
 	char *tokens[MAX_INPUT_SIZE];
+	char *tok = NULL;
 	size_t len = 0;
 	char *token;
 	int i;
@@ -21,6 +22,7 @@ int main(void)
 		input[strcspn(input, "\n")] = 0;
 
 		token = _strtok(input, " ");
+		tok = _strtok(NULL, " ");
 		i = 0;
 		while (token != NULL)
 		{
@@ -38,6 +40,10 @@ int main(void)
 		else if (_strcmp(tokens[0], "exit") == 0)
 		{
 			exit_builtin(tokens);
+		}
+		else if (_strcmp(tokens[0], "cd") == 0)
+		{
+			cd_builtin(tok);
 		}
 		else
 		{
