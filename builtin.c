@@ -35,13 +35,15 @@ void env_builtin(void)
 
 void exit_builtin(char **tokens)
 {
+	int status;
+	char *error;
+
 	if (tokens[1] != NULL)
 	{
-		int status = atoi(tokens[1]);
+		status = atoi(tokens[1]);
 		if (status == 0 && _strcmp(tokens[1], "0") != 0)
 		{
-			// The argument is not a valid integer
-			char *error = "Usage: exit [status]\n";
+			error = "Usage: exit [status]\n";
 			write(STDERR_FILENO, error, _strlen(error));
 		}
 		else
