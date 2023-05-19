@@ -104,3 +104,22 @@ int cd_builtin(char *path)
 
     return 0;
 }
+
+/**
+ * get_current_dir - get the current directory
+ *
+ * Return: the current directory
+ */
+
+char *get_current_dir() {
+    char *cwd = malloc(MAX_INPUT_SIZE);
+    if (cwd == NULL) {
+        perror("malloc");
+        exit(EXIT_FAILURE);
+    }
+    if (getcwd(cwd, MAX_INPUT_SIZE) == NULL) {
+        perror("getcwd");
+        exit(EXIT_FAILURE);
+    }
+    return cwd;
+}

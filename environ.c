@@ -96,53 +96,59 @@ ssize_t _getline(char **line_ptr, size_t *line_size, FILE *stream)
  * Return: void
  */
 
-int _setenv(const char *name, const char *value, int overwrite) {
-    // If overwrite is zero and the variable already exists, do nothing.
-    if (!overwrite && getenv(name) != NULL) {
-        return 0;
-    }
+int _setenv(const char *name, const char *value, int overwrite)
+{
+	// If overwrite is zero and the variable already exists, do nothing.
+	if (!overwrite && getenv(name) != NULL)
+	{
+		return 0;
+	}
 
-    // Allocate memory for the new environment variable string.
-    size_t name_len = strlen(name);
-    size_t value_len = strlen(value);
-    char *env_str = malloc(name_len + value_len + 2);
-    if (env_str == NULL) {
-        errno = ENOMEM;
-        return -1;
-    }
+	// Allocate memory for the new environment variable string.
+	size_t name_len = strlen(name);
+	size_t value_len = strlen(value);
+	char *env_str = malloc(name_len + value_len + 2);
+	if (env_str == NULL)
+	{
+		errno = ENOMEM;
+		return -1;
+	}
 
-    // Construct the new environment variable string.
-    memcpy(env_str, name, name_len);
-    env_str[name_len] = '=';
-    memcpy(env_str + name_len + 1, value, value_len);
-    env_str[name_len + value_len + 1] = '\0';
+	// Construct the new environment variable string.
+	memcpy(env_str, name, name_len);
+	env_str[name_len] = '=';
+	memcpy(env_str + name_len + 1, value, value_len);
+	env_str[name_len + value_len + 1] = '\0';
 
-    // Set the new environment variable by modifying the environment array.
-    extern char **environ;
-    int env_size = 0;
-    while (environ[env_size] != NULL) {
-        env_size++;
-    }
+	// Set the new environment variable by modifying the environment array.
+	extern char **environ;
+	int env_size = 0;
+	while (environ[env_size] != NULL)
+	{
+		env_size++;
+	}
 
-    char **new_environ = malloc(sizeof(char *) * (env_size + 2));
-    if (new_environ == NULL) {
-        errno = ENOMEM;
-        free(env_str);
-        return -1;
-    }
+	char **new_environ = malloc(sizeof(char *) * (env_size + 2));
+	if (new_environ == NULL)
+	{
+		errno = ENOMEM;
+		free(env_str);
+		return -1;
+	}
 
-    int i = 0;
-    while (environ[i] != NULL) {
-        new_environ[i] = environ[i];
-        i++;
-    }
+	int i = 0;
+	while (environ[i] != NULL)
+	{
+		new_environ[i] = environ[i];
+		i++;
+	}
 
-    new_environ[i] = env_str;
-    new_environ[i + 1] = NULL;
+	new_environ[i] = env_str;
+	new_environ[i + 1] = NULL;
 
-    environ = new_environ;
+	environ = new_environ;
 
-    return 0;
+	return 0;
 }
 
 /**
@@ -153,28 +159,31 @@ int _setenv(const char *name, const char *value, int overwrite) {
  * Return: 0
  */
 
-int unsetenv(const char *name) {
-    // Allocate memory for the environment variable string to remove.
-    size_t name_len = strlen(name);
-    char *env_str = malloc(name_len + 2);
-    if (env_str == NULL) {
-        errno = ENOMEM;
-        return -1;
-    }
+int _unsetenv(const char *name)
+{
+	// Allocate memory for the environment variable string to remove.
+	size_t name_len = strlen(name);
+	char *env_str = malloc(name_len + 2);
+	if (env_str == NULL)
+	{
+		errno = ENOMEM;
+		return -1;
+	}
 
-    // Construct the environment variable string to remove.
-    memcpy(env_str, name, name_len);
-    env_str[name_len] = '=';
-    env_str[name_len + 1] = '\0';
+	// Construct the environment variable string to remove.
+	memcpy(env_str, name, name_len);
+	env_str[name_len] = '=';
+	env_str[name_len + 1] = '\0';
 
-    // Remove the environment variable.
-    int result = putenv(env_str);
-    if (result != 0) {
-        errno = EINVAL;
-        free(env_str);
-        return -1;
-    }
+	// Remove the environment variable.
+	int result = putenv(env_str);
+	if (result != 0)
+	{
+		errno = EINVAL;
+		free(env_str);
+		return -1;
+	}
 
-    free(env_str);
-    return 0;
+	free(env_str);
+	return 0;
 }

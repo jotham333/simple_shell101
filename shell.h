@@ -21,6 +21,7 @@ extern char **environ;
 void env_builtin();
 void exit_builtin(char **tokens);
 int cd_builtin(char *path);
+char *get_current_dir();
 
 /* executor.c */
 void execute_command(char **tokens);

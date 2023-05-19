@@ -5,69 +5,6 @@
  * Return: Always 0.
  */
 
-
-// int main(void)
-// {
-// 	char *input = NULL;
-// 	char *tokens[MAX_INPUT_SIZE];
-// 	char *path;
-// 	size_t len = 0;
-// 	char *token;
-// 	int i;
-
-// 	while (1)
-// 	{
-// 		write(1, "cisfun$ ", 9);
-// 		_getline(&input, &len, stdin);
-// 		input[strcspn(input, "\n")] = 0;
-		
-// 		token = _strtok(input, " ");
-// 		i = 0;
-// 		while (token != NULL)
-// 		{
-// 			tokens[i] = token;
-// 			i++;
-// 			token = _strtok(NULL, " ");
-// 		}
-// 		tokens[i] = NULL;
-
-// 		if (_strcmp(tokens[0], "env") == 0)
-// 		{
-// 			env_builtin();
-// 			continue;
-// 		}
-// 		else if (_strcmp(tokens[0], "exit") == 0)
-// 		{
-// 			exit_builtin(tokens);
-// 		}
-// 		else if (_strcmp(tokens[0], "cd") == 0)
-// 		{
-// 			path = tokens[1];
-// 			cd_builtin(path);
-// 		}
-// 		else
-// 		{
-// 			execute_command(tokens);
-// 		}
-// 		fflush(stdout);
-// 	}
-// 	free(input);
-// 	return (0);
-// }
-
-char *get_current_dir() {
-    char *cwd = malloc(MAX_INPUT_SIZE);
-    if (cwd == NULL) {
-        perror("malloc");
-        exit(EXIT_FAILURE);
-    }
-    if (getcwd(cwd, MAX_INPUT_SIZE) == NULL) {
-        perror("getcwd");
-        exit(EXIT_FAILURE);
-    }
-    return cwd;
-}
-
 int main(void) {
     char *input = NULL;
     char *tokens[MAX_INPUT_SIZE];
