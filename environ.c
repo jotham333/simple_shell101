@@ -34,47 +34,57 @@ char *_getenv(char *name)
  * Return: the number of characters read
  */
 
+
 ssize_t _getline(char **line_ptr, size_t *line_size, FILE *stream)
 {
-	ssize_t bytes_read;
-	size_t i;
-	char *new_buf;
+    ssize_t bytes_read;
+    size_t i;
+    char *new_buf;
 
-	for (i = 0;; i++)
-	{
-		if (i + 1 >= *line_size)
-		{
-			*line_size = (*line_size ? *line_size * 2 : 512);
-			new_buf = realloc(*line_ptr, *line_size);
-			if (!new_buf)
-			{
-				free(*line_ptr);
-				return (-1);
-			}
-			*line_ptr = new_buf;
-		}
-		bytes_read = read(fileno(stream), &((*line_ptr)[i]), 1);
-		if (bytes_read <= 0)
-		{
-			break;
-		}
-		if ((*line_ptr)[i] == '\n')
-		{
-			i++;
-			break;
-		}
-	}
+    for (i = 0;; i++)
+    {
+        if (i + 1 >= *line_size)
+        {
+            *line_size = (*line_size ? *line_size * 2 : 512);
+            new_buf = realloc(*line_ptr, *line_size);
+            if (!new_buf)
+            {
+                free(*line_ptr);
+                return (-1);
+            }
+            *line_ptr = new_buf;
+        }
+        bytes_read = read(fileno(stream), &((*line_ptr)[i]), 1);
+        if (bytes_read <= 0)
+        {
+            break;
+        }
+        if ((*line_ptr)[i] == '\n')
+        {
+            i++;
+            break;
+        }
+    }
 
-	if (bytes_read < 0 || (bytes_read == 0 && i == 0))
-	{
-		free(*line_ptr);
-		return (-1);
-	}
+    if (bytes_read < 0 || (bytes_read == 0 && i == 0))
+    {
+        free(*line_ptr);
+        *line_ptr = NULL;
+        return (-1);
+    }
 
-	(*line_ptr)[i] = '\0';
+    if (i == 0 && bytes_read == 0)
+    {
+        free(*line_ptr);
+        *line_ptr = NULL;
+        return 0;
+    }
 
-	return (i);
+    (*line_ptr)[i] = '\0';
+
+    return (ssize_t)i;
 }
+
 
 /**
  * _setenv - set an environment variable
@@ -85,10 +95,6 @@ ssize_t _getline(char **line_ptr, size_t *line_size, FILE *stream)
  *
  * Return: void
  */
-
-#include <stdlib.h>
-#include <string.h>
-#include <errno.h>
 
 int _setenv(const char *name, const char *value, int overwrite) {
     // If overwrite is zero and the variable already exists, do nothing.
@@ -136,5 +142,39 @@ int _setenv(const char *name, const char *value, int overwrite) {
 
     environ = new_environ;
 
+    return 0;
+}
+
+/**
+ * unsetenv - unset an environment variable
+ *
+ * @name: name of the environment variable
+ *
+ * Return: 0
+ */
+
+int unsetenv(const char *name) {
+    // Allocate memory for the environment variable string to remove.
+    size_t name_len = strlen(name);
+    char *env_str = malloc(name_len + 2);
+    if (env_str == NULL) {
+        errno = ENOMEM;
+        return -1;
+    }
+
+    // Construct the environment variable string to remove.
+    memcpy(env_str, name, name_len);
+    env_str[name_len] = '=';
+    env_str[name_len + 1] = '\0';
+
+    // Remove the environment variable.
+    int result = putenv(env_str);
+    if (result != 0) {
+        errno = EINVAL;
+        free(env_str);
+        return -1;
+    }
+
+    free(env_str);
     return 0;
 }
