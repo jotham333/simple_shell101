@@ -1,6 +1,5 @@
 #include "shell.h"
 
-
 /**
  * env_builtin - print the environment
  *
@@ -26,8 +25,6 @@ void env_builtin(void)
 	}
 }
 
-
-
 /**
  * exit_builtin - exit the shell
  *
@@ -40,9 +37,20 @@ void exit_builtin(char **tokens)
 {
 	if (tokens[1] != NULL)
 	{
-		write(STDERR_FILENO, "Usage: exit\n", 11);
-		return;
+		int status = atoi(tokens[1]);
+		if (status == 0 && _strcmp(tokens[1], "0") != 0)
+		{
+			// The argument is not a valid integer
+			char *error = "Usage: exit [status]\n";
+			write(STDERR_FILENO, error, _strlen(error));
+		}
+		else
+		{
+			exit(status);
+		}
 	}
-	exit(EXIT_SUCCESS);
-
+	else
+	{
+		exit(EXIT_SUCCESS);
+	}
 }

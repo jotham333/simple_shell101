@@ -12,6 +12,7 @@
 #include <fcntl.h>
 #include <limits.h>
 
+
 extern char **environ;
 
 #define MAX_INPUT_SIZE 1024
@@ -34,6 +35,8 @@ char *_strtok(char *str, char *delim);
 /*environ.c */
 char *_getenv(char *name);
 ssize_t _getline(char **lineptr, size_t *line_size, FILE *stream);
+int _setenv(const char *name, const char *value, int overwrite);
+int _unsetenv(const char *name);
 
 
 /* string1.c */
