@@ -27,7 +27,6 @@ char *get_current_dir();
 void execute_command(char **tokens);
 
 
-
 /* tokenize.c */
 char **tokenize(char *str);
 char *_strtok(char *str, char *delim);

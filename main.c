@@ -58,5 +58,5 @@ int main(void) {
         fflush(stdout);
     }
     free(input);
-    return 0;
+    return (0);
 }
