@@ -87,6 +87,14 @@ int main(void)
 				path = tokens[1];
 				cd_builtin(path);
 			}
+			else if (strcmp(tokens[0], "alias") == 0)
+			{
+				alias_builtin(tokens);
+			}
+			else if (strcmp(tokens[0],"unalias") == 0) 
+			{ 
+				unalias_builtin(tokens);
+			}
 			else
 			{
 				execute_command(tokens);

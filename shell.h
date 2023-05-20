@@ -57,6 +57,10 @@ char *_strdup(char *str);
 char *_strchr(char *str, char character);
 int _isspace(int c);
 
+/*alias.c*/
+void alias_builtin(char **tokens);
+void unset_alias(char *name);
+void unalias_builtin(char **tokens);
 
 
 #endif
