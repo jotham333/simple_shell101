@@ -11,6 +11,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <limits.h>
+#include <ctype.h>
 
 
 extern char **environ;
@@ -24,7 +25,8 @@ int cd_builtin(char *path);
 char *get_current_dir();
 
 /* executor.c */
-void execute_command(char **tokens);
+int execute_command(char **tokens);
+void execute_commands(char *commands);
 
 
 
@@ -53,6 +55,7 @@ char *_strcpy(char *destination, char *srcource);
 char *_strcat(char *dest, char *src);
 char *_strdup(char *str);
 char *_strchr(char *str, char character);
+int _isspace(int c);
 
 
 
