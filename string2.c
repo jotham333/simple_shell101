@@ -98,3 +98,19 @@ char *_strcpy(char *destination, char *source)
 
 	return (destination);
 }
+
+int _isspace(int c)
+{
+    // Returns true if the given character is a whitespace character
+    switch (c) {
+        case ' ':
+        case '\t':
+        case '\n':
+        case '\r':
+        case '\f':
+        case '\v':
+            return 1;
+        default:
+            return 0;
+    }
+}
