@@ -17,6 +17,8 @@
 extern char **environ;
 
 #define MAX_INPUT_SIZE 1024
+#define MAX_ARGUMENTS 1024
+
 
 /* builtin.c */
 void env_builtin();
@@ -27,7 +29,7 @@ char *get_current_dir();
 /* executor.c */
 int execute_command(char **tokens);
 void execute_commands(char *commands);
-
+void execute_subcommand(char *command, int arg_count, char **args);
 
 /* tokenize.c */
 char **tokenize(char *str);
@@ -61,5 +63,9 @@ void alias_builtin(char **tokens);
 void unset_alias(char *name);
 void unalias_builtin(char **tokens);
 
+/* atoi */
+int interactive();
 
+/* memory */
+void _realloc(void *ptr, size_t old_size, size_t new_size);
 #endif

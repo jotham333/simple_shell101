@@ -112,25 +112,3 @@ int _strncmp(char *str1, char *str2, size_t n)
 		return (1);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

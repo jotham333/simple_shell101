@@ -116,11 +116,11 @@ int cd_builtin(char *path)
 char *get_current_dir() {
     char *cwd = malloc(MAX_INPUT_SIZE);
     if (cwd == NULL) {
-        perror("malloc");
+        perror("malloc failed");
         exit(EXIT_FAILURE);
     }
     if (getcwd(cwd, MAX_INPUT_SIZE) == NULL) {
-        perror("getcwd");
+        perror("Failed to getcwd");
         exit(EXIT_FAILURE);
     }
     return cwd;
