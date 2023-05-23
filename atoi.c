@@ -1,16 +1,26 @@
 #include "shell.h"
 
 
-int interactive()
+
+/**
+ * interactive - checks if shell is interactive
+ *
+ * Return: true if shell is interactive and false otherwise
+ */
+
+bool interactive(void)
 {
 	return (isatty(STDIN_FILENO));
 }
 
+
+
+
 /**
- * atoi - extract integer from string
- * @str - the string argument 
+ * _atoi - extract integer from string
+ * @str: the string argument
  *
- * return - type integer
+ * Return: type integer
  */
 
 int _atoi(const char *str)

@@ -12,7 +12,7 @@
 #include <fcntl.h>
 #include <limits.h>
 #include <ctype.h>
-
+#include <stdbool.h>
 
 extern char **environ;
 
@@ -40,15 +40,15 @@ char *_strtok(char *str, char *delim);
 /*environ.c */
 char *_getenv(char *name);
 ssize_t _getline(char **lineptr, size_t *line_size, FILE *stream);
+int _unsetenv(char *name);
 int _setenv(const char *name, const char *value, int overwrite);
-int _unsetenv(const char *name);
 
 
 /* string1.c */
 size_t _strlen(char *str);
 int _strcmp(const char *str1, const char *str2);
 int _strncmp(char *str1, char *str2, size_t n);
-
+size_t _strcspn(const char *str, const char *charset);
 
 
 /* string2.c */
@@ -64,8 +64,9 @@ void unset_alias(char *name);
 void unalias_builtin(char **tokens);
 
 /* atoi */
-int interactive();
+bool interactive();
 
 /* memory */
-void _realloc(void *ptr, size_t old_size, size_t new_size);
+void *_realloc(void *ptr, size_t new_size);
+void *_memcpy(void *dest, const void *src, size_t num_bytes);
 #endif

@@ -58,7 +58,7 @@ void exit_builtin(char **tokens)
 }
 
 /**
- * cd - change directory
+ * cd_builtin - change directory
  *
  * @path: path to change to
  *
@@ -67,44 +67,44 @@ void exit_builtin(char **tokens)
 
 int cd_builtin(char *path)
 {
-    char *new_path = NULL;
-    char *oldpwd = NULL;
-    char *pwd = NULL;
+	char *new_path = NULL;
+	char *oldpwd = NULL;
+	char *pwd = NULL;
 
-    if (!path || _strcmp(path, "~") == 0)
-    {
-        new_path = _getenv("HOME");
-    }
-    else if (_strcmp(path, "-") == 0)
-    {
-        new_path = _getenv("OLDPWD");
-    }
-    else
-    {
-        new_path = (char *)path;
-    }
+	if (!path || _strcmp(path, "~") == 0)
+	{
+		new_path = _getenv("HOME");
+	}
+	else if (_strcmp(path, "-") == 0)
+	{
+		new_path = _getenv("OLDPWD");
+	}
+	else
+	{
+		new_path = (char *)path;
+	}
 
-    oldpwd = getcwd(NULL, 0);
-    if (chdir(new_path) == -1)
-    {
-        perror("cd");
-        free(oldpwd);
-        return 1;
-    }
+	oldpwd = getcwd(NULL, 0);
+	if (chdir(new_path) == -1)
+	{
+		perror("cd");
+		free(oldpwd);
+		return (1);
+	}
 
-    pwd = getcwd(NULL, 0);
-    if (_setenv("OLDPWD", oldpwd, 1) == -1 || _setenv("PWD", pwd, 1) == -1)
-    {
-        perror("setenv");
-        free(oldpwd);
-        free(pwd);
-        return 1;
-    }
+	pwd = getcwd(NULL, 0);
+	if (_setenv("OLDPWD", oldpwd, 1) == -1 || _setenv("PWD", pwd, 1) == -1)
+	{
+		perror("setenv");
+		free(oldpwd);
+		free(pwd);
+		return (1);
+	}
 
-    free(oldpwd);
-    free(pwd);
+	free(oldpwd);
+	free(pwd);
 
-    return 0;
+	return (0);
 }
 
 /**
@@ -113,15 +113,19 @@ int cd_builtin(char *path)
  * Return: the current directory
  */
 
-char *get_current_dir() {
-    char *cwd = malloc(MAX_INPUT_SIZE);
-    if (cwd == NULL) {
-        perror("malloc failed");
-        exit(EXIT_FAILURE);
-    }
-    if (getcwd(cwd, MAX_INPUT_SIZE) == NULL) {
-        perror("Failed to getcwd");
-        exit(EXIT_FAILURE);
-    }
-    return cwd;
+char *get_current_dir()
+{
+	char *cwd = malloc(MAX_INPUT_SIZE);
+
+	if (cwd == NULL)
+	{
+		perror("malloc failed");
+		exit(EXIT_FAILURE);
+	}
+	if (getcwd(cwd, MAX_INPUT_SIZE) == NULL)
+	{
+		perror("Failed to getcwd");
+		exit(EXIT_FAILURE);
+	}
+	return (cwd);
 }

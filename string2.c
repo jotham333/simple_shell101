@@ -99,18 +99,30 @@ char *_strcpy(char *destination, char *source)
 	return (destination);
 }
 
+
+
+/**
+ * _isspace - checks for space in a string
+ *
+ * @c: the character to check for
+ *
+ * Return: 1 if space was found and 0 otherwise
+ */
+
+
 int _isspace(int c)
 {
-    // Returns true if the given character is a whitespace character
-    switch (c) {
-        case ' ':
-        case '\t':
-        case '\n':
-        case '\r':
-        case '\f':
-        case '\v':
-            return 1;
-        default:
-            return 0;
-    }
+
+	switch (c)
+	{
+		case ' ':
+		case '\t':
+		case '\n':
+		case '\r':
+		case '\f':
+		case '\v':
+			return (1);
+		default:
+			return (0);
+	}
 }

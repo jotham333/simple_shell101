@@ -112,3 +112,60 @@ int _strncmp(char *str1, char *str2, size_t n)
 		return (1);
 	}
 }
+
+
+/**
+ * _strcspn - determine the length of a prefix substring in a string
+ *
+ * @str: pointer to the first string
+ *
+ * @charset: pointer to the secomd string
+ *
+ * Return:len of the longest initial segment of str that consists
+ * of character not contained in charset
+ */
+
+
+size_t _strcspn(const char *str, const char *charset)
+{
+	const char *ptr;
+	const char *set;
+
+	for (ptr = str; *ptr != '\0'; ++ptr)
+	{
+		for (set = charset; *set != '\0'; ++set)
+		{
+			if (*ptr == *set)
+			{
+				return ((size_t)(ptr - str));
+			}
+		}
+	}
+
+	return ((size_t)(ptr - str));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

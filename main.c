@@ -17,15 +17,15 @@ int main(void)
 	int cmd;
 	int num_commands = 0;
 
-	while (interactive && 1)
+	while (interactive() && 1)
 	{
 		cwd = get_current_dir();
-		write(STDOUT_FILENO, "cisfun:", strlen("cisfun:"));
-		write(STDOUT_FILENO, cwd, strlen(cwd));
+		write(STDOUT_FILENO, "cisfun:", _strlen("cisfun:"));
+		write(STDOUT_FILENO, cwd, _strlen(cwd));
 		write(STDOUT_FILENO, "$ ", 2);
 		free(cwd);
 
-		bytes_read = getline(&input, &len, stdin);
+		bytes_read = _getline(&input, &len, stdin);
 		if (bytes_read == -1)
 		{
 			perror("getline");
@@ -36,51 +36,51 @@ int main(void)
 			continue;
 		}
 
-		input[strcspn(input, "\n")] = '\0';
+		input[_strcspn(input, "\n")] = '\0';
 
-		command = strtok(input, ";");
+		command = _strtok(input, ";");
 		while (command != NULL)
 		{
 			commands[num_commands] = command;
 			num_commands++;
-			command = strtok(NULL, ";");
+			command = _strtok(NULL, ";");
 		}
       
 		for (cmd = 0; cmd < num_commands; cmd++)
 		{
 	
 			current_command = commands[cmd];
-			while (isspace(*current_command))
+			while (_isspace(*current_command))
 			{
 				current_command++;
 			}
-			end = current_command + strlen(current_command) - 1;
-			while (end > current_command && isspace(*end))
+			end = current_command + _strlen(current_command) - 1;
+			while (end > current_command && _isspace(*end))
 			{
 				end--;
 			}
 			*(end + 1) = '\0';
 
-			token = strtok(current_command, " ");
+			token = _strtok(current_command, " ");
 			i = 0;
 			while (token != NULL)
 			{
 				tokens[i] = token;
 				i++;
-				token = strtok(NULL, " ");
+				token = _strtok(NULL, " ");
 			}
 			tokens[i] = NULL;
 
-			if (strcmp(tokens[0], "env") == 0)
+			if (_strcmp(tokens[0], "env") == 0)
 			{
 				env_builtin();
 			}
-			else if (strcmp(tokens[0], "exit") == 0)
+			else if (_strcmp(tokens[0], "exit") == 0)
 			{
 				exit_builtin(tokens);
 				break;
 			}
-			else if (strcmp(tokens[0], "cd") == 0)
+			else if (_strcmp(tokens[0], "cd") == 0)
 			{
 				path = tokens[1];
 				cd_builtin(path);
