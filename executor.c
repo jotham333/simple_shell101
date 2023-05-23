@@ -30,11 +30,7 @@ int execute_command(char **tokens)
 	{
 		if (tokens[0][0] == '/')
 		{
-			if (execve(tokens[0], tokens, NULL) == -1)
-			{
-				perror("command not found");
-				exit(EXIT_FAILURE);
-			}
+			(execve(tokens[0], tokens, NULL) == -1);
 		}
 		else
 		{
@@ -47,11 +43,7 @@ int execute_command(char **tokens)
 				_strcpy(bin_path, token);
 				_strcat(bin_path, "/");
 				_strcat(bin_path, tokens[0]);
-				if (execve(bin_path, tokens, NULL) == -1)
-				{
-					perror("command not found");
-					exit(EXIT_FAILURE);
-				}
+				(execve(bin_path, tokens, NULL) == -1);
 				token = strtok(NULL, ":");
 			}
 			free(path_copy);

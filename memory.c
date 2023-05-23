@@ -74,7 +74,19 @@ void *_realloc(void *ptr, size_t new_size)
 
 
 
+void tokenizeString(const char* input, const char* delimiters)
+{
+    char* copy = strdup(input);  // Make a copy of the input string
+    char* token = strtok(copy, delimiters);
 
+    while (token != NULL)
+    {
+        printf("%s\n", token);
+        token = strtok(NULL, delimiters);
+    }
+
+    free(copy);  // Free the copied string
+}
 
 
 

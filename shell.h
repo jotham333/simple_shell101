@@ -18,8 +18,9 @@ extern char **environ;
 
 #define MAX_INPUT_SIZE 1024
 #define MAX_ARGUMENTS 1024
-
-
+#define TOK_DELIM " \t\n\a\r;"
+void process_input(char *input);
+void print_prompt();
 /* builtin.c */
 void env_builtin();
 void exit_builtin(char **tokens);
@@ -65,6 +66,7 @@ void unalias_builtin(char **tokens);
 
 /* atoi */
 bool interactive();
+void tokenizeString(const char* input, const char* delimiters);
 
 /* memory */
 void *_realloc(void *ptr, size_t new_size);

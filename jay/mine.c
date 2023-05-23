@@ -141,7 +141,7 @@ char *komal_read_line(void)
 		if (c == EOF)
 		{
 			exit(EXIT_SUCCESS);
-		}
+signal(SIGINT, sigintHandler);		}
 		else if (c == '\n')
 		{
 			buffer[position] = '\0';
