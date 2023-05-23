@@ -15,7 +15,7 @@ int execute_command(char **tokens)
 {
 	char *path, *path_copy, *token;
 	pid_t pid;
-	int status;
+	int status, ret;
 	char bin_path[MAX_INPUT_SIZE];
 
 	pid = fork();
@@ -30,7 +30,11 @@ int execute_command(char **tokens)
 	{
 		if (tokens[0][0] == '/')
 		{
-			execve(tokens[0], tokens, NULL);
+			if (execve(tokens[0], tokens, NULL) == -1)
+			{
+				perror("command not found");
+				exit(EXIT_FAILURE);
+			}
 		}
 		else
 		{
@@ -43,7 +47,11 @@ int execute_command(char **tokens)
 				_strcpy(bin_path, token);
 				_strcat(bin_path, "/");
 				_strcat(bin_path, tokens[0]);
-				execve(bin_path, tokens, NULL);
+				if (execve(bin_path, tokens, NULL) == -1)
+				{
+					perror("command not found");
+					exit(EXIT_FAILURE);
+				}
 				token = strtok(NULL, ":");
 			}
 			free(path_copy);
