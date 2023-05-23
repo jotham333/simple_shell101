@@ -88,6 +88,38 @@ void print_prompt() {
     free(cwd);
 }
 
+
+
+typedef void (*builtin_func_t)(char*);
+
+void process_command(char *command) {
+    char *tokens[MAX_INPUT_SIZE];
+    char *token = strtok(command, " ");
+    int i = 0;
+    while (token != NULL) {
+        tokens[i] = token;
+        i++;
+        token = strtok(NULL, " ");
+    }
+    tokens[i] = NULL;
+
+    builtin_func_t builtins[] = {env_builtin, exit_builtin, cd_builtin};
+    const char *builtin_names[] = {"env", "exit", "cd"};
+
+    int builtin_index = -1;
+    for (int j = 0; j < sizeof(builtins) / sizeof(builtins[0]); j++) {
+        if (strcmp(tokens[0], builtin_names[j]) == 0) {
+            builtin_index = j;
+            break;
+        }
+    }
+    if (builtin_index != -1) {
+        builtins[builtin_index](tokens[1]);
+    } else {
+        execute_command(tokens);
+    }
+}
+
 void process_input(char *input) {
     char *commands[MAX_INPUT_SIZE];
     int num_commands = 0;
@@ -110,29 +142,10 @@ void process_input(char *input) {
         }
         *(end + 1) = '\0';
 
-        char *tokens[MAX_INPUT_SIZE];
-        char *token = strtok(current_command, " ");
-        int i = 0;
-        while (token != NULL) {
-            tokens[i] = token;
-            i++;
-            token = strtok(NULL, " ");
-        }
-        tokens[i] = NULL;
-
-        if (strcmp(tokens[0], "env") == 0) {
-            env_builtin();
-        } else if (strcmp(tokens[0], "exit") == 0) {
-            exit_builtin(tokens);
-            break;
-        } else if (strcmp(tokens[0], "cd") == 0) {
-            char *path = tokens[1];
-            cd_builtin(path);
-        } else {
-            execute_command(tokens);
-        }
+        process_command(current_command);
     }
 }
+
 
 int main(void) {
     char *input = NULL;
@@ -163,4 +176,4 @@ int main(void) {
     }
 
     return 0;
-}*/
+}
