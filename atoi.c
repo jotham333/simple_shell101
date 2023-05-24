@@ -2,18 +2,40 @@
 
 
 
+
 /**
- * interactive - checks if shell is interactive
+ * print_prompt - prompt the user for input
  *
- * Return: true if shell is interactive and false otherwise
+ * Return: nothing
  */
 
-bool interactive(void)
+
+void print_prompt(void)
 {
-	return (isatty(STDIN_FILENO));
+	char *cwd = get_current_dir();
+
+	write(STDOUT_FILENO, "cisfun:", strlen("cisfun:"));
+	write(STDOUT_FILENO, cwd, strlen(cwd));
+	write(STDOUT_FILENO, "$ ", 2);
+	free(cwd);
 }
 
 
+/**
+ * sigint_handler - print a newline when ctrl + c is pressed
+ *
+ * @signal: signal of the function
+ *
+ * Return: nothing
+ */
+
+void sigint_handler(int signal)
+{
+	(void)signal;
+
+	write(1, "\n", 1);
+	fflush(stdout);
+}
 
 
 /**
@@ -42,16 +64,16 @@ int _atoi(const char *str)
 			i++;
 			continue;
 		}
-
 		if (str[i] >= '0' && str[i] <= '9')
 		{
 			digit = str[i] - '0';
 			result = result * 10 + digit;
 		}
-		else if (str[i] >= 'a' && str[i] <= 'z' || str[i] >= 'A' && str[i] <= 'Z')
+		else if ((str[i] >= 'a' && str[i] <= 'z') ||
+				(str[i] >= 'A' && str[i] <= 'Z'))
 			break;
-
 		i++;
+
 	}
 
 	return (sign * result);

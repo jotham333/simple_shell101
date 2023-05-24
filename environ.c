@@ -8,7 +8,7 @@
  * Return: void
  */
 
-char *_getenv(char *name)
+char *_getenv(const char *name)
 {
 	char **env = environ;
 	size_t name_len = _strlen(name);
@@ -73,10 +73,10 @@ ssize_t _getline(char **line_ptr, size_t *line_size, FILE *stream)
 	{
 		free(*line_ptr);
 		*line_ptr = NULL;
-		return 0;
+		return (0);
 	}
 	(*line_ptr)[i] = '\0';
-	return (ssize_t)(i);
+	return ((ssize_t)i);
 }
 
 
@@ -92,21 +92,21 @@ ssize_t _getline(char **line_ptr, size_t *line_size, FILE *stream)
 
 int _setenv(const char *name, const char *value, int overwrite)
 {
-	size_t name_len = strlen(name), value_len = strlen(value);
+	size_t name_len = _strlen(name), value_len = _strlen(value);
 	char *env_str, **new_environ;
 	int env_size, i;
 
-	if (!overwrite && getenv(name) != NULL)
-		return 0;
+	if (!overwrite && _getenv(name) != NULL)
+		return (0);
 	env_str = malloc(name_len + value_len + 2);
 	if (env_str == NULL)
 	{
 		errno = ENOMEM;
-		return -1;
+		return (-1);
 	}
-	memcpy(env_str, name, name_len);
+	_memcpy(env_str, name, name_len);
 	env_str[name_len] = '=';
-	memcpy(env_str + name_len + 1, value, value_len);
+	_memcpy(env_str + name_len + 1, value, value_len);
 	env_str[name_len + value_len + 1] = '\0';
 	env_size = 0;
 	while (environ[env_size] != NULL)
@@ -118,7 +118,7 @@ int _setenv(const char *name, const char *value, int overwrite)
 	{
 		errno = ENOMEM;
 		free(env_str);
-		return -1;
+		return (-1);
 	}
 	i = 0;
 	while (environ[i] != NULL)
@@ -133,7 +133,7 @@ int _setenv(const char *name, const char *value, int overwrite)
 }
 
 /**
- * unsetenv - unset an environment variable
+ * _unsetenv - unset an environment variable
  *
  * @name: name of the environment variable
  *

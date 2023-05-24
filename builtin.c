@@ -40,7 +40,7 @@ void exit_builtin(char **tokens)
 
 	if (tokens[1] != NULL)
 	{
-		status = atoi(tokens[1]);
+		status = _atoi(tokens[1]);
 		if (status == 0 && _strcmp(tokens[1], "0") != 0)
 		{
 			error = "Usage: exit [status]\n";

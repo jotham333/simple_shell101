@@ -3,34 +3,28 @@
 
 
 /**
- * tokenize - tokenize a string
+ * tokenize_command - tokenize a command
  *
- * @str: string to tokenize
+ * @command: pointer to command
  *
- * Return: array of tokens
+ * @tokens: pointer to array of tokens
+ *
+ * Return: nothing
  */
 
-char **tokenize(char *str)
+void tokenize_command(char *command, char *tokens[])
 {
-	char **tokens = NULL;
-	char *token = _strtok(str, " ");
+	char *token = _strtok(command, " ");
 	int i = 0;
 
 	while (token != NULL)
 	{
-		tokens = realloc(tokens, sizeof(char *) * (i + 1));
-		tokens[i] = _strdup(token);
+		tokens[i] = token;
 		i++;
 		token = _strtok(NULL, " ");
 	}
-
-	tokens = realloc(tokens, sizeof(char *) * (i + 1));
 	tokens[i] = NULL;
-
-	return (tokens);
 }
-
-
 
 
 /**
@@ -76,4 +70,29 @@ char *_strtok(char *str, char *delim)
 	}
 	last = str;
 	return (token);
+}
+
+/**
+ * trim_whitespace - terminate whitespaces in command
+ *
+ * @command: pointer to the command
+ *
+ * Return: nothing
+ */
+
+
+void trim_whitespace(char *command)
+{
+	char *end;
+
+	while (_isspace(*command))
+	{
+		command++;
+	}
+	end = command + _strlen(command) - 1;
+	while (end > command && _isspace(*end))
+	{
+		end--;
+	}
+	*(end + 1) = '\0';
 }

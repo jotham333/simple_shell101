@@ -10,7 +10,7 @@
  * Return: the number of string counted
  */
 
-size_t _strlen(char *str)
+size_t _strlen(const char *str)
 {
 	size_t i;
 
@@ -81,7 +81,7 @@ int _strcmp(const char *str1, const char *str2)
  * Return: 0 if strings are same; -1 if str1 is less and 1 if str2 is less
  */
 
-int _strncmp(char *str1, char *str2, size_t n)
+int _strncmp(char *str1, const char *str2, size_t n)
 {
 	while (*str1 != '\0' && *str2 != '\0' && n > 0)
 	{

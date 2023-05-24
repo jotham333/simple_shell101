@@ -13,42 +13,41 @@
 #include <limits.h>
 #include <ctype.h>
 #include <stdbool.h>
+#include <signal.h>
+
 
 extern char **environ;
 
 #define MAX_INPUT_SIZE 1024
 #define MAX_ARGUMENTS 1024
-#define TOK_DELIM " \t\n\a\r;"
-void process_input(char *input);
-void print_prompt();
+
+
 /* builtin.c */
-void env_builtin();
+void env_builtin(void);
 void exit_builtin(char **tokens);
 int cd_builtin(char *path);
 char *get_current_dir();
 
 /* executor.c */
 int execute_command(char **tokens);
-void execute_commands(char *commands);
-void execute_subcommand(char *command, int arg_count, char **args);
+void process_input(char *input);
 
 /* tokenize.c */
-char **tokenize(char *str);
 char *_strtok(char *str, char *delim);
-
-
+void tokenize_command(char *command, char *tokens[]);
+void trim_whitespace(char *str);
 
 /*environ.c */
-char *_getenv(char *name);
+char *_getenv(const char *name);
 ssize_t _getline(char **lineptr, size_t *line_size, FILE *stream);
 int _unsetenv(char *name);
 int _setenv(const char *name, const char *value, int overwrite);
 
 
 /* string1.c */
-size_t _strlen(char *str);
+size_t _strlen(const char *str);
 int _strcmp(const char *str1, const char *str2);
-int _strncmp(char *str1, char *str2, size_t n);
+int _strncmp(char *str1, const char *str2, size_t n);
 size_t _strcspn(const char *str, const char *charset);
 
 
@@ -65,10 +64,13 @@ void unset_alias(char *name);
 void unalias_builtin(char **tokens);
 
 /* atoi */
-bool interactive();
-void tokenizeString(const char* input, const char* delimiters);
+void tokenizeString(const char *input, const char *delimiters);
+void sigint_handler(int signal);
+int _atoi(const char *str);
+void print_prompt(void);
 
 /* memory */
 void *_realloc(void *ptr, size_t new_size);
 void *_memcpy(void *dest, const void *src, size_t num_bytes);
+
 #endif

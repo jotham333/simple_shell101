@@ -15,19 +15,18 @@
 
 void *_memcpy(void *dest, const void *src, size_t num_bytes)
 {
-	char *d;
-	const char *s;
+	char *d = dest;
+	const char *s = src;
 	size_t i = 0;
 
-	d = dest;
-	s = src;
 
 	while (i < num_bytes)
 	{
 		d[i] = s[i];
+		i++;
 	}
 
-	return (d);
+	return (dest);
 }
 
 
@@ -64,37 +63,10 @@ void *_realloc(void *ptr, size_t new_size)
 	if (ptr != NULL)
 	{
 		copy_size = new_size < sizeof(ptr) ? new_size : sizeof(ptr);
-		memcpy(new_ptr, ptr, copy_size);
+		_memcpy(new_ptr, ptr, copy_size);
 
 		free(ptr);
 	}
 
 	return (new_ptr);
 }
-
-
-
-void tokenizeString(const char* input, const char* delimiters)
-{
-    char* copy = strdup(input);  // Make a copy of the input string
-    char* token = strtok(copy, delimiters);
-
-    while (token != NULL)
-    {
-        printf("%s\n", token);
-        token = strtok(NULL, delimiters);
-    }
-
-    free(copy);  // Free the copied string
-}
-
-
-
-
-
-
-
-
-
-
-
