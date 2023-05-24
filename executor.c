@@ -19,7 +19,6 @@ int execute_command(char **tokens)
 	char bin_path[MAX_INPUT_SIZE];
 
 	pid = fork();
-
 	if (pid == -1)
 	{
 		perror("fork failed");

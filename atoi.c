@@ -14,8 +14,8 @@ void print_prompt(void)
 {
 	char *cwd = get_current_dir();
 
-	write(STDOUT_FILENO, "cisfun:", strlen("cisfun:"));
-	write(STDOUT_FILENO, cwd, strlen(cwd));
+	write(STDOUT_FILENO, "cisfun:", _strlen("cisfun:"));
+	write(STDOUT_FILENO, cwd, _strlen(cwd));
 	write(STDOUT_FILENO, "$ ", 2);
 	free(cwd);
 }
