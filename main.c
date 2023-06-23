@@ -4,9 +4,9 @@ GlobalVar globalVar = {NULL, NULL, NULL, 0};
 /**
  * main - monty code interpreter
  *
- * @arc: argument counter
+ * @argc: argument counter
  *
- * @arv: arguement vector
+ * @argv: arguement vector
  *
  * Return: 0 on success
  */
@@ -50,5 +50,5 @@ int main(int argc, char **argv)
 	free_stack(stack);
 	fclose(file);
 
-	return(0);
+	return (0);
 }
