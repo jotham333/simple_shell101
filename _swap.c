@@ -1,5 +1,12 @@
 #include "monty.h"
 
+/**
+ * f_swap - swaps the top two elements of the stack
+ * @head: the stack head
+ * @counter: current line number in the Monty program
+ * Return: nothing
+*/
+
 void f_swap(stack_t **head, unsigned int counter)
 {
 	stack_t *ptr;

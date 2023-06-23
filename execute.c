@@ -1,7 +1,8 @@
 #include "monty.h"
+#include <string.h>
 
 /* Stack opcodes */
-static struct
+static const struct
 {
 	const char *opcode;
 	void (*func)(stack_t **, unsigned int);
@@ -23,32 +24,32 @@ static struct
  * @file: file to execute
  * Return: 0
  */
-
 int execute(char *content, stack_t **stack, unsigned int counter, FILE *file)
 {
-	char opcode[MAX_OPCODE_LEN] = {0};
-	char arg[MAX_ARG_LEN] = {0};
+	char *opcode = strtok(content, " \t\n");
+	char *arg = strtok(NULL, " \t\n");
+	void (*func)(stack_t **, unsigned int) = NULL;
 	int i;
-
-	/* Parse the opcode */
-	sscanf(content, "%s", opcode);
-
-	/* Parse the argument */
-	sscanf(content, "%*s%s", arg);
 
 	for (i = 0; opcodes[i].opcode; i++)
 	{
 		if (strcmp(opcodes[i].opcode, opcode) == 0)
 		{
-			globalVar.arg = arg;
-			opcodes[i].func(stack, counter);
-			return (0);
+			func = opcodes[i].func;
+			break;
 		}
 	}
 
-	fprintf(stderr, "L%d: unknown instruction %s\n", counter, opcode);
-	fclose(file);
-	free(content);
-	free_stack(*stack);
-	exit(EXIT_FAILURE);
+	if (!func)
+	{
+		fprintf(stderr, "L%d: unknown instruction %s\n", counter, opcode);
+		fclose(file);
+		free(content);
+		free_stack(*stack);
+		exit(EXIT_FAILURE);
+	}
+
+	globalVar.arg = arg;
+	func(stack, counter);
+	return (0);
 }
