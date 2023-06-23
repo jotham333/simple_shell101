@@ -1,4 +1,5 @@
 #include "monty.h"
+GlobalVar globalVar = {NULL, NULL, NULL, 0};
 
 /**
  * main - monty code interpreter
@@ -34,7 +35,7 @@ int main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 
-	while (readline > 0)
+	while (readline != -1)
 	{
 		content = NULL;
 		readline = getline(&content, &size, file);
