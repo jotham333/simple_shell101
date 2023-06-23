@@ -30,14 +30,15 @@ typedef struct stack_s
  * @lifi: flag change stack <-> queue
  * Description: carries values through the program
  */
-typedef struct bus_s
-{
-	char *arg;
-	FILE *file;
-	char *content;
-	int lifi;
-}  bus_t;
-extern bus_t bus;
+typedef struct global_var {
+    char *arg;
+    FILE *file;
+    char *content;
+    int is_stack;
+} GlobalVar;
+
+extern GlobalVar globalVar;
+
 /**
  * struct instruction_s - opcode and its function
  * @opcode: the opcode
