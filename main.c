@@ -10,7 +10,7 @@
  * Return: 0 on success
  */
 
-int main(int arc, char **arv)
+int main(int argc, char **argv)
 {
 	char *content;
 	FILE *file;
@@ -19,7 +19,7 @@ int main(int arc, char **arv)
 	unsigned int count = 0;
 	stack_t *stack = NULL;
 
-	if (arc != 2)
+	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
@@ -30,7 +30,7 @@ int main(int arc, char **arv)
 		content = NULL;
 		readline = getline(&content, &size, file);
 		globalVar.content = content;
-		counte++;
+		count++;
 		if (readline > 0)
 		{
 			execute(content, &stack, count, file);

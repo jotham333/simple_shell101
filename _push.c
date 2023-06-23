@@ -11,41 +11,41 @@
  */
 void f_push(stack_t **stack, unsigned int line_number)
 {
-    char *endptr;
-    long int val;
-    stack_t *new;
+	char *endptr;
+	long int val;
+	stack_t *new;
 
-    if (globalVar.arg[1] == NULL)
-    {
-        fprintf(stderr, "L%d: usage: push integer\n", line_number);
-        exit(EXIT_FAILURE);
-    }
+	if (globalVar.arg[1] == NULL)
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
+	}
 
-    endptr;
-    val = strtol(globalVar.arg[1], &endptr, 10);
+	endptr;
+	val = strtol(globalVar.arg[1], &endptr, 10);
 
-    /* Check for errors in input */
-    if (*endptr != '\0' || endptr == globalVar.arg[1])
-    {
-        fprintf(stderr, "L%d: usage: push integer\n", line_number);
-        exit(EXIT_FAILURE);
-    }
+	/* Check for errors in input */
+	if (*endptr != '\0' || endptr == globalVar.arg[1])
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
+	}
 
-    new = malloc(sizeof(stack_t));
-    if (new == NULL)
-    {
-        fprintf(stderr, "Error: malloc failed\n");
-        exit(EXIT_FAILURE);
-    }
+	new = malloc(sizeof(stack_t));
+	if (new == NULL)
+	{
+		fprintf(stderr, "Error: malloc failed\n");
+		exit(EXIT_FAILURE);
+	}
 
-    new->n = (int)val;
-    new->prev = NULL;
-    new->next = *stack;
+	new->n = (int)val;
+	new->prev = NULL;
+	new->next = *stack;
 
-    if (*stack != NULL)
-        (*stack)->prev = new;
+	if (*stack != NULL)
+		(*stack)->prev = new;
 
-    *stack = new;
+	*stack = new;
 
-    printf("L%d: PUSH %d\n", line_number, new->n);
+	printf("L%d: PUSH %d\n", line_number, new->n);
 }
