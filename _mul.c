@@ -1,5 +1,12 @@
 #include "monty.h"
 
+/**
+ * f_swap - multiply the top two elements of the stack
+ * @head: the stack head
+ * @counter: current line number in the Monty program
+ * Return: nothing
+*/
+
 void f_mul(stack_t **head, unsigned int counter)
 {
     stack_t *ptr;
@@ -14,8 +21,8 @@ void f_mul(stack_t **head, unsigned int counter)
 		exit(EXIT_FAILURE);
 	}
 
-    ptr = *head;
-    temp = ptr->next->n * ptr->n;
+    ptr = (*head)->next;
+    temp = ptr->next->n *= ptr->n;
     ptr->next->n = temp;
     *head = ptr->next;
     free(ptr);

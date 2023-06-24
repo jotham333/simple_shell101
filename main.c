@@ -5,15 +5,9 @@ GlobalVar globalVar = {NULL, NULL, NULL, 0};
 /**
  * main - Monty code interpreter
  *
-<<<<<<< HEAD
  * @argc: argument counter
  *
  * @argv: arguement vector
-=======
- * @argc: argument count
- *
- * @argv: argument vector
->>>>>>> f328e62966d2a9f08e6b159cf0dc789d62cf172b
  *
  * Return: 0 on success
  */
@@ -42,12 +36,15 @@ int main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 
+	
 	while (readline != -1)
 	{
 		line = NULL;
 		readline = getline(&line, &len, file);
 		globalVar.content = line;
 		line_number++;
+		if (line[0] == '#')
+			continue;
 		if (readline > 0)
 		{
 			execute(line, &stack, line_number, file);

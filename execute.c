@@ -25,7 +25,7 @@ int execute(char *content, stack_t **stack, unsigned int counter, FILE *file)
 	char *arg = strtok(NULL, " \t\n");
 	void (*func)(stack_t **, unsigned int line_number) = NULL;
 	int i;
-
+	
 	for (i = 0; opcodes[i].opcode; i++)
 	{
 		if (strcmp(opcodes[i].opcode, opcode) == 0)
