@@ -9,8 +9,8 @@
 
 void f_div(stack_t **head, unsigned int counter)
 {
-	stack_h *ptr;
-	int size = 0; temp;
+	stack_t *ptr;
+	int size = 0, temp;
 
 	ptr = *head;
 
@@ -72,7 +72,7 @@ void f_mod(stack_t **head, unsigned int counter)
 	{
 		fprintf(stderr, "L%d: division by zero\n", counter);
 		fclose(globalVar.file);
-		free(global.content);
+		free(globalVar.content);
 		free_stack(*head);
 		exit(EXIT_FAILURE);
 	}
@@ -94,22 +94,22 @@ void f_mod(stack_t **head, unsigned int counter)
  * Return: no return
 */
 
-void f_pchar(stack_t == head, unsigned int counter)
+void f_pchar(stack_t **head, unsigned int counter)
 {
-	stack *ptr;
+	stack_t *ptr;
 
 	ptr = *head;
 
 	if (!ptr)
 	{
-		fprintf(stderr,"%Ld: can't pchar, stack empty\n"counter);
+		fprintf(stderr,"L%d: can't pchar, stack empty\n", counter);
 		fclose(globalVar.file);
 		free(globalVar.content);
 		free_stack(*head);
 		exit(EXIT_FAILURE);
 	}
 
-	if (ptr->n-> 127 || ptr->n < )
+	if (ptr->n > 127 || ptr->n < 0)
 	{
 		fprintf(stderr, "L%d: can't pcha, value out ofrange\n", counter);
 		fclose(globalVar.file);

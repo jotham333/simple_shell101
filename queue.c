@@ -22,7 +22,7 @@ void addqueue(stack_t **head, int n)
 {
 	stack_t *new_node, *temp;
 
-	aux = *head;
+	temp = *head;
 	new_node = malloc(sizeof(stack_t));
 	if (new_node == NULL)
 	{
