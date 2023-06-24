@@ -2,11 +2,7 @@
 #include <string.h>
 
 /* Stack opcodes */
-static const struct
-{
-	const char *opcode;
-	void (*func)(stack_t **, unsigned int);
-} opcodes[] = {
+const instruction_t opcodes[] = {
 	{"push", f_push},
 	{"pall", f_pall},
 	{"pint", f_pint},
@@ -35,7 +31,7 @@ int execute(char *content, stack_t **stack, unsigned int counter, FILE *file)
 	{
 		if (strcmp(opcodes[i].opcode, opcode) == 0)
 		{
-			func = opcodes[i].func;
+			func = opcodes[i].fct;
 			break;
 		}
 	}
