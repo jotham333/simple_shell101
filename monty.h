@@ -10,8 +10,8 @@
 #include <string.h>
 #include <ctype.h>
 
-#define MAX_OPCODE_LEN 16
-#define MAX_ARG_LEN 16
+#define MAX_OPCODE_LEN 50
+#define MAX_ARG_LEN 50
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)

@@ -23,7 +23,7 @@ int execute(char *content, stack_t **stack, unsigned int counter, FILE *file)
 
 	char *opcode = strtok(content, " \t\n");
 	char *arg = strtok(NULL, " \t\n");
-	void (*func)(stack_t **, unsigned int) = NULL;
+	void (*func)(stack_t **, unsigned int line_number) = NULL;
 	int i;
 
 	for (i = 0; opcodes[i].opcode; i++)
