@@ -9,7 +9,9 @@
 
 void rotr(stack_t **head, unsigned int counter)
 {
-    stack_t *last, *second_last;
+    stack_t *last;
+    stack_t *second_last;
+    (void)counter;
 
     if (*head == NULL || (*head)->next == NULL)
     {
